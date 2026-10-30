@@ -1,4 +1,4 @@
-﻿# HorizonSync development handoff
+# HorizonSync development handoff
 
 ## Agreed product direction
 
@@ -22,7 +22,7 @@
 
 See docs/VALIDATION.md for exact evidence and limits. Latest partial core run: 43 passed with -SkipCli. Three mock process checks remain enabled by default, but the latest full local run was blocked by Windows application control; never describe the partial run as a full-suite pass. Earlier mock integration checks passed. Sixty solar events match Astral within 30.9 seconds.
 
-The installed engine was found; waiting status and settings navigation were inspected. Ordinary-user execution also showed the real green ready state. Actual wallpaper switching, successful system-location acquisition, installer lifecycle and a full CI run remain unverified. The CI workflow is prepared and will run on source upload.
+The installed engine was found; waiting status and settings navigation were inspected. Ordinary-user execution also showed the real green ready state. Actual wallpaper switching, successful system-location acquisition, and installer lifecycle remain unverified. Public CI passed all 46 checks and the 60-event Astral comparison: https://github.com/fireery/HorizonSync-dev/actions/runs/41112750368.
 
 ## First operation on resume
 
@@ -30,7 +30,7 @@ Read this file, inspect current files/build outputs and running preview processe
 
 ## Next work
 
-Finish real Wallpaper Engine, resume/unlock, multi-monitor/DPI and installer install/upgrade/uninstall validation. Review the final UI with the owner, run CI and verify the GitHub source and preview release. Publisher signing is not configured.
+Finish real Wallpaper Engine, resume/unlock, multi-monitor/DPI and installer install/upgrade/uninstall validation. Review the final UI with the owner and verify the GitHub preview release. CI has passed for the application code. Publisher signing is not configured.
 
 The owner explicitly deferred wallpaper-selection experience improvements to the next version. Track that work in docs/ROADMAP.md; do not keep expanding the selection UI in this iteration. No specific redesign or acceptance criteria have been approved yet.
 
@@ -45,4 +45,8 @@ The owner explicitly deferred wallpaper-selection experience improvements to the
 
 ## Language and README decisions
 
-English and Simplified Chinese are implemented. The owner requested a dropdown selector (Windows language / 简体中文 / English) with instant changes and saved preference. The README follows HMCL''s centered header, badges and section structure, with original HorizonSync assets/content and English/Chinese versions. User data and toolchains must not be uploaded.
+English and Simplified Chinese are implemented. The owner requested a dropdown selector (Windows language / 简体中文 / English) with instant changes and saved preference. The README follows HMCL's centered header, badges and section structure, with original HorizonSync assets/content and English/Chinese versions. User data and toolchains must not be uploaded.
+
+## First public preview
+
+The source is committed on main. Application code commit 28b32482530bf2165146dc345de6214044233fbe passed all 46 tests on GitHub Actions; the local partial run remains a separate 43-test record. Release tag: v0.1.0-preview.1. Four artifacts are prepared: installer, portable ZIP, corresponding source ZIP and SHA256SUMS.txt. Verify the release page before calling publication complete.
