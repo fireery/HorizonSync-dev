@@ -1,0 +1,12 @@
+build/
+dist/
+data/
+*.exe
+*.pdb
+activity.log*
+startup-error.log
+settings.xml*
+portable.flag
+__pycache__/
+.vs/
+*.user
