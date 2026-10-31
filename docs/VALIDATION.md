@@ -1,4 +1,4 @@
-﻿# Validation status
+# Validation status
 
 Development snapshot: 2026-10-31, version 0.1.0-preview.1.
 
@@ -38,3 +38,16 @@ GitHub Actions passed all 46 core and mock CLI checks for application code commi
 Run: https://github.com/fireery/HorizonSync-dev/actions/runs/41112750368
 
 The remaining real-device and installer lifecycle checks above are still open; this release remains a prerelease.
+
+
+## Issue #1 development validation — 2026-11-01
+
+- Application script build passed. All 46 core/mock CLI checks and 36 deterministic picker checks passed locally.
+- Picker checks cover 500-item discovery/deduplication, scene/video/web paths, corrupt metadata, missing/broken/transparent images, file-handle release, independent LRU count/byte limits, real GIF frame progression/looping, reused pixel buffers, pause-to-static, 200 actual animation sessions, rapid replacement, cancellation and both GIF budgets.
+- After warm-up, the final three measured batches of 50 GIF sessions retained approximately 1.7 MiB managed memory; private bytes were approximately 36.7 MiB and handle counts stayed at 393–395. Garbage collection was requested only in the measurement harness, never by application code. These are small deterministic fixture measurements, not a whole-app memory cap.
+- All 56 locally installed wallpapers had decodable static previews, with no metadata errors. Real Chinese and English thumbnail grids, enlarged GIFs, search, live author lookup, pause, Escape returning focus to the card and Enter confirmation were inspected. The UI harness uses the application's .NET Framework 4.8 target/configuration; this is necessary to reproduce production TLS and WPF compatibility behavior.
+- The centered GIF preview reuses one worker pixel buffer, one coalesced UI staging buffer and one WriteableBitmap; it does not enqueue a dispatcher operation or allocate an immutable full-size image for each frame. Leaving a preview clears frame references and cancels/releases the decoder before the next session starts. Pause provides a static first frame.
+- Synthetic stress assets are separate from the installed library. Their animation uses near-identical muted colors, and the synthetic UI is explicitly labeled. No private wallpaper images, library names, author IDs, local paths or logs are included in the public repository.
+- GitHub fresh-clone and CI verification: pending upload; record the checked commit and run separately after validation.
+
+Remaining feature validation: native 150%/200% DPI and monitor transitions, extended screen-reader use, and larger real-world GIF memory/CPU profiling. The tests above do not claim those checks. Previewing or selecting a wallpaper does not invoke the desktop-switching command; the original real-device/installer validation gaps remain open.

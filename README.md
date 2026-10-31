@@ -41,7 +41,7 @@ Solar events are calculated locally. HorizonSync runs independently and controls
 
 <p align="center"><img src="docs/images/time-en.png" alt="HorizonSync time settings" width="900"></p>
 
-*The screenshot uses example coordinates. Wallpaper selection improvements are planned for the next version.*
+*The screenshot uses example coordinates. The development branch adds thumbnail selection and centered GIF previews; the published preview package remains unchanged.*
 
 ## Download
 

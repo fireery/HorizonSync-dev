@@ -14,7 +14,7 @@
 - Windows time and time zone take precedence. In system-location mode, available Windows coordinates replace stored coordinates; failures preserve the fallback and explain the issue.
 - WPF interface with unified compact controls, icon-only sidebar and bottom-left settings without a divider. Wallpaper Engine paths belong in settings; the wallpaper page shows readiness and an actionable settings link.
 - Approved artistic monochrome brand assets, English/Simplified Chinese language dropdown and GPL-3.0-only licensing. Do not restore rejected colored icon concepts or the old WinForms interface.
-- Wallpaper-selection experience improvements are deferred to the next iteration, as recorded in `docs/ROADMAP.md`; their design and acceptance criteria still need agreement.
+- Issue #1 implementation approved: virtualized thumbnail grid, centered large GIF preview, one disposable preview session, bounded thumbnail cache and optional author enrichment. Work on `feature/wallpaper-thumbnail-picker`.
 
 ## Build and validation
 
@@ -24,7 +24,7 @@
 
 ## First operation on resume
 
-Read this file and `git status --short --branch`. Migration is complete. Work from `develop` and agree the next feature scope using `docs/ROADMAP.md`. Consult the private migration report in the sibling local folder only if historical files are needed; do not repeat the migration.
+Read this file and `git status --short --branch`. Issue #1 implementation and local validation are complete: script build, 46 core/CLI checks, 36 picker checks, all 56 installed previews decoded. Real Chinese/English UI, GIF playback/pause, author lookup, search, Escape return-to-card and Enter confirmation inspected. The harness now uses production .NET 4.8 target/config. Pixel buffers and WriteableBitmap are reused; only one animation runs. Next commit/push `feature/wallpaper-thumbnail-picker`, freshly clone FROM GitHub into a sibling local validation folder, compare commit hashes, build/test the clone and inspect CI, then record evidence. Native 150%/200% DPI and monitor transitions remain open. Do not repeat migration, change desktop wallpapers or replace published attachments.
 
 ## Do not repeat
 

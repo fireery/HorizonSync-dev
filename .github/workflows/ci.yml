@@ -19,6 +19,9 @@ jobs:
       - name: Run complete core and mock CLI tests
         shell: pwsh
         run: ./tests/Run-Tests.ps1
+      - name: Run picker lifecycle and metadata tests
+        shell: pwsh
+        run: ./tests/Run-PickerTests.ps1
       - name: Independent solar comparison
         shell: pwsh
         run: |

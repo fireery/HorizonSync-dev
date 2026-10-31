@@ -41,7 +41,7 @@ HorizonSync 是配合 **Wallpaper Engine** 使用的轻量 Windows 工具。它�
 
 <p align="center"><img src="docs/images/time-en.png" alt="HorizonSync 时间设置" width="900"></p>
 
-*截图使用示例坐标。壁纸选择体验优化已记录到下一版本。*
+*截图使用示例坐标。开发分支新增缩略图选择与居中 GIF 大图预览；已发布预览包仍为原版本。*
 
 ## 下载
 

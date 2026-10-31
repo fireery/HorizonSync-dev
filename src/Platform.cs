@@ -29,40 +29,4 @@ namespace HorizonSync
         }
     }
 
-    class WallpaperItem { public string Title, Path; public override string ToString() { return Title; } }
-    static class WallpaperLibrary
-    {
-        public static List<WallpaperItem> Scan(string exe)
-        {
-            var roots = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (var lib in Engine.Libraries()) roots.Add(System.IO.Path.Combine(lib, "steamapps", "workshop", "content", "431960"));
-            try
-            {
-                string dir = System.IO.Path.GetDirectoryName(exe);
-                roots.Add(System.IO.Path.GetFullPath(System.IO.Path.Combine(dir, "..", "..", "workshop", "content", "431960")));
-                roots.Add(System.IO.Path.Combine(dir, "projects", "myprojects")); roots.Add(System.IO.Path.Combine(dir, "projects", "defaultprojects"));
-            } catch { }
-            var result = new List<WallpaperItem>(); var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (string root in roots)
-            {
-                string[] dirs; try { dirs = Directory.GetDirectories(root); } catch { continue; }
-                foreach (string dir in dirs)
-                {
-                    string project = System.IO.Path.GetFullPath(System.IO.Path.Combine(dir, "project.json"));
-                    if (!File.Exists(project) || !seen.Add(project)) continue;
-                    try
-                    {
-                        if (new FileInfo(project).Length > 4 * 1024 * 1024) continue;
-                        var data = new JavaScriptSerializer().Deserialize<Dictionary<string, object>>(File.ReadAllText(project));
-                        string title = data.ContainsKey("title") ? Convert.ToString(data["title"]) : System.IO.Path.GetFileName(dir);
-                        string file = data.ContainsKey("file") ? Convert.ToString(data["file"]) : "";
-                        string type = data.ContainsKey("type") ? Convert.ToString(data["type"]) : "scene";
-                        string path = (type == "video" || type == "web") && file != "" ? System.IO.Path.GetFullPath(System.IO.Path.Combine(dir, file)) : project;
-                        if (File.Exists(path)) result.Add(new WallpaperItem { Title = title + "  [" + System.IO.Path.GetFileName(dir) + "]", Path = path });
-                    } catch { }
-                }
-            }
-            return result.OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase).ToList();
-        }
-    }
 }
