@@ -1,98 +1,107 @@
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/HorizonSync-White.svg">
-    <img src="assets/HorizonSync-Black.svg" alt="HorizonSync logo" width="100">
+    <img src="assets/HorizonSync-Black.svg" alt="HorizonSync 标志" width="100">
   </picture>
 </div>
 
 <h1 align="center">HorizonSync</h1>
-<p align="center">Let your wallpapers follow the sun.</p>
+<p align="center">让壁纸跟着日出日落。</p>
 
 <div align="center">
 
 [![GitHub](https://img.shields.io/badge/GitHub-repository-24292f?style=flat-square&logo=github)](https://github.com/fireery/HorizonSync-dev)
 [![Build](https://github.com/fireery/HorizonSync-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/fireery/HorizonSync-dev/actions/workflows/ci.yml)
-[![Windows](https://img.shields.io/badge/Windows-10%20%2F%2011-0078D4?style=flat-square)](#requirements)
+[![Windows](https://img.shields.io/badge/Windows-10%20%2F%2011-0078D4?style=flat-square)](#运行要求)
 [![License](https://img.shields.io/badge/License-GPL--3.0-205c61?style=flat-square)](LICENSE)
-[![Preview](https://img.shields.io/badge/Release-0.1.0--preview.1-8c6b37?style=flat-square)](https://github.com/fireery/HorizonSync-dev/releases)
+[![Development](https://img.shields.io/badge/Development-0.2.0--preview-8c6b37?style=flat-square)](https://github.com/fireery/HorizonSync-dev/pull/2)
 
 </div>
 
-<p align="center"><b>English</b> · <a href="README.zh-CN.md">简体中文</a></p>
-<p align="center"><a href="https://github.com/fireery/HorizonSync-dev/releases">Download</a> · <a href="docs/USAGE.md">User guide</a> · <a href="https://github.com/fireery/HorizonSync-dev/issues">Feedback</a></p>
+<p align="center"><a href="README.en.md">English</a> · <b>简体中文</b></p>
+<p align="center"><a href="https://github.com/fireery/HorizonSync-dev/releases">下载</a> · <a href="docs/USAGE.zh-CN.md">使用说明</a> · <a href="https://github.com/fireery/HorizonSync-dev/issues">问题反馈</a></p>
 
-## Introduction
+## 简介
 
-HorizonSync is a lightweight Windows companion for **Wallpaper Engine**. It switches between your day and night wallpapers using the local sunrise and sunset, so your schedule follows the seasons without periodic manual adjustments.
+HorizonSync 是配合 **Wallpaper Engine** 使用的轻量 Windows 工具。它根据每天的日出日落，切换白天与夜晚壁纸，让切换时间随季节变化。
 
-Solar events are calculated locally. HorizonSync runs independently and controls Wallpaper Engine through its documented command line interface.
+日出日落在本地计算，程序通过 Wallpaper Engine 官方命令接口进行控制，独立运行。
 
-## Features
+## 功能
 
-- **Follow the sun:** use Windows location or enter coordinates, with separate sunrise and sunset offsets.
-- **Follow Windows time:** use the current system date, time and time zone, including daylight saving changes.
-- **Find Wallpaper Engine automatically:** reuse the saved installation location, show a clear readiness status, and link directly to the relevant setting if attention is needed.
-- **Make it your own:** choose day and night wallpapers, or use custom fixed times.
-- **Stay out of the way:** run in the tray, optionally start at sign-in, and realign after resume, unlock or an engine restart.
-- **Choose your language:** English and Simplified Chinese, with a system-language option and instant switching.
-- **Keep data local:** per-user settings, portable mode, recoverable configuration backups and no telemetry.
+- **随日出日落切换**：使用系统定位或指定坐标，分别设置日出、日落的提前或延后分钟数。
+- **跟随系统时间**：以 Windows 当前日期、时间和时区为准，处理夏令时变化。
+- **自动查找程序**：优先使用已保存的安装位置，显示就绪状态；异常入口直接跳转对应设置。
+- **选择昼夜壁纸**：分别选择白天和夜晚壁纸，也可使用固定时间切换。
+- **托盘运行**：支持登录启动，以及唤醒、解锁和 Wallpaper Engine 重启后的重新对齐。
+- **中英双语**：提供跟随系统、简体中文和 English，切换后即时更新。
+- **本地配置**：支持用户目录和便携模式、配置备份与损坏文件保留，不包含遥测。
 
-## Preview
+## 界面预览
 
-<p align="center"><img src="docs/images/time-en.png" alt="HorizonSync time settings" width="900"></p>
+<p align="center"><img src="docs/images/time-en.png" alt="HorizonSync 时间设置" width="900"></p>
 
-*The screenshot uses example coordinates. Wallpaper selection improvements are planned for the next version.*
+*截图使用示例坐标。开发分支新增缩略图选择与居中 GIF 大图预览；已发布预览包仍为原版本。*
 
-## Download
+## 版本状态
 
-Download an **installer** or **portable ZIP** from [GitHub Releases](https://github.com/fireery/HorizonSync-dev/releases). Release files include SHA-256 checksums and the corresponding source archive.
+- **已发布：** [0.1.0-preview](https://github.com/fireery/HorizonSync-dev/releases/tag/v0.1.0-preview)。
+- **开发中：** `0.2.0-preview`，壁纸缩略图与 GIF 大图预览已合并到 [`develop`](https://github.com/fireery/HorizonSync-dev/tree/develop)，尚未正式发布。
 
-This first release is a **development preview**. Known validation gaps, including installer lifecycle and real wallpaper switching scenarios, are listed in [Validation status](docs/VALIDATION.md).
+## 下载
 
-### Requirements
+从 [GitHub Releases](https://github.com/fireery/HorizonSync-dev/releases) 获取**安装包**或**便携 ZIP**，同时提供 SHA-256 校验值和对应源码包。
 
-- Windows 10 Creators Update or later, or Windows 11.
-- .NET Framework 4.8 or later.
-- Wallpaper Engine installed and running as the same user with matching privileges.
+首个版本为**开发预览版**。真实壁纸切换场景、安装与卸载等尚未完成的验证，见[验证记录](docs/VALIDATION.md)。
 
-The current version manages one Wallpaper Engine display index at a time. Solar events are estimates; terrain and atmospheric conditions affect the visible sunrise and sunset.
+### 运行要求
 
-## Getting started
+- Windows 10 Creators Update 或更新版本，或 Windows 11。
+- .NET Framework 4.8 或更新版本。
+- 已安装并运行 Wallpaper Engine，两个程序由相同用户、以匹配的权限运行。
 
-1. Open **Time**, choose a schedule and check the location. Preview today's plan.
-2. Open **Wallpapers**, check the Wallpaper Engine status and choose your day and night wallpapers. Test each one.
-3. Save your original Wallpaper Engine playlist and turn off its timed switching to avoid competing schedules.
-4. Enable automatic switching, then select **Save settings**.
+当前版本每次管理一个 Wallpaper Engine 显示器编号。日出日落为标准模型估算，地形及天气会影响实际可见时间。
 
-Closing the window keeps HorizonSync in the tray. Use **Quit HorizonSync** in the tray menu to stop it. See the [user guide](docs/USAGE.md) for configuration, recovery and uninstall instructions.
+## 开始使用
 
-## Contributing
+1. 在**时间**页选择切换方式，核对位置并预览今日计划。
+2. 在**壁纸**页检查程序状态，选择并测试白天、夜晚壁纸。
+3. 保存原 Wallpaper Engine 播放列表，停用其中的定时切换，避免两套规则覆盖彼此。
+4. 打开启用开关，点击**保存设置**。
 
-Bug reports, suggestions, code improvements and translations are welcome.
+关闭窗口后程序留在托盘；需要停止时，在托盘菜单选择**彻底退出**。配置、恢复与卸载方法见[使用说明](docs/USAGE.zh-CN.md)。
 
-- [Report a problem or suggest a feature](https://github.com/fireery/HorizonSync-dev/issues/new).
-- [Submit a pull request](https://github.com/fireery/HorizonSync-dev/compare).
-- Check the [roadmap](docs/ROADMAP.md) before starting larger changes.
+## 仓库语言
 
-Build and test on Windows:
+仓库以**简体中文**作为主要文档和协作语言。README、问题反馈（Issues）、合并请求（PR）和发布说明优先使用中文；英文说明保留在 [README.en.md](README.en.md)。产品名称、代码标识和命令保持原样。
+
+## 参与贡献
+
+欢迎提交错误报告、功能建议、代码改进和翻译。
+
+- [报告问题或提出建议](https://github.com/fireery/HorizonSync-dev/issues/new)。
+- [提交合并请求（Pull Request）](https://github.com/fireery/HorizonSync-dev/compare)，请先阅读[贡献指南](CONTRIBUTING.md)。
+- 较大改动请先查看[迭代记录](docs/ROADMAP.md)。
+
+在 Windows 上构建和测试：
 
 ```powershell
 .\build.ps1
 .\tests\Run-Tests.ps1
 ```
 
-Open `HorizonSync.csproj` in Visual Studio, or use the included compiler script. Application code depends only on system .NET Framework libraries. [Packaging and release checks](docs/RELEASE.md) cover portable and Inno Setup installer builds.
+可用 Visual Studio 打开 `HorizonSync.csproj`，也可使用项目编译脚本。程序仅依赖系统 .NET Framework 库。便携包、安装包的构建方法见[发行检查](docs/RELEASE.md)。
 
-## License
+## 许可证
 
-HorizonSync is distributed under **[GNU GPL v3.0 only](LICENSE)** (`GPL-3.0-only`), without warranty. The corresponding source and build scripts are included in this repository.
+HorizonSync 按 **[GNU GPL v3.0 only](LICENSE)**（`GPL-3.0-only`）发布，不提供担保。仓库提供对应源代码和构建脚本。
 
 Copyright © 2026 fireery and HorizonSync contributors.
 
-## Acknowledgements
+## 致谢
 
-- [Wallpaper Engine](https://help.wallpaperengine.io/en/functionality/cli.html) for the documented control interface.
-- [NOAA solar calculations](https://gml.noaa.gov/grad/solcalc/calcdetails.html) for the solar calculation reference.
-- [HMCL](https://github.com/HMCL-dev/HMCL) for the README layout reference.
+- [Wallpaper Engine](https://help.wallpaperengine.io/en/functionality/cli.html)：官方控制接口。
+- [NOAA](https://gml.noaa.gov/grad/solcalc/calcdetails.html)：太阳位置计算参考。
+- [HMCL](https://github.com/HMCL-dev/HMCL)：README 版式参考。
 
-HorizonSync is an independent project and does not bundle Wallpaper Engine or Auto Dark Mode.
+HorizonSync 为独立项目，不捆绑 Wallpaper Engine 或 Auto Dark Mode。
