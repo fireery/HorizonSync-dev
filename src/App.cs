@@ -258,17 +258,9 @@ namespace HorizonSync
             var trigger=C<Button>(name=="DayPathInput"?"DayLibrary":"NightLibrary");trigger.IsEnabled=false;
             try
             {
-                string engine=Input("EngineInput").Text;var items=await Task.Run(()=>WallpaperLibrary.Scan(engine));
-                if(items.Count==0){MessageBox.Show(this,Localization.T("没有找到壁纸。请先选择 Wallpaper Engine 安装路径，或使用浏览按钮。"),"HorizonSync");return;}
-                var dialog=new Window{Title=Localization.T("选择已安装壁纸"),Owner=this,Icon=Icon,Width=760,Height=600,MinWidth=600,MinHeight=450,WindowStartupLocation=WindowStartupLocation.CenterOwner,FontFamily=FontFamily,FontSize=16,Background=(Brush)new BrushConverter().ConvertFromString("#F3F9F9"),Resources=view.Resources,UseLayoutRounding=true};
-                var root=new Grid{Margin=new Thickness(28)};root.RowDefinitions.Add(new RowDefinition{Height=GridLength.Auto});root.RowDefinitions.Add(new RowDefinition{Height=GridLength.Auto});root.RowDefinitions.Add(new RowDefinition());root.RowDefinitions.Add(new RowDefinition{Height=GridLength.Auto});
-                root.Children.Add(new TextBlock{Text=Localization.T("选择壁纸"),FontSize=28,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,0,0,20)});
-                var search=new TextBox{Margin=new Thickness(0,0,0,16),ToolTip=Localization.T("输入壁纸名称筛选")};System.Windows.Automation.AutomationProperties.SetName(search,Localization.T("搜索壁纸名称"));Grid.SetRow(search,1);root.Children.Add(search);
-                var list=new ListBox{ItemsSource=items,BorderBrush=(Brush)new BrushConverter().ConvertFromString("#DCE6E6"),BorderThickness=new Thickness(1),Padding=new Thickness(12),FontSize=16};
-                var itemStyle=new Style(typeof(ListBoxItem));itemStyle.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(12)));itemStyle.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty,HorizontalAlignment.Stretch));list.ItemContainerStyle=itemStyle;Grid.SetRow(list,2);root.Children.Add(list);
-                var choose=new Button{Content=Localization.T("选择壁纸"),Style=(Style)view.Resources["Primary"],HorizontalAlignment=HorizontalAlignment.Right,Margin=new Thickness(0,18,0,0)};Grid.SetRow(choose,3);root.Children.Add(choose);
-                Action select=()=>{var selected=list.SelectedItem as WallpaperItem;if(selected!=null){Input(name).Text=selected.Path;dialog.DialogResult=true;}};
-                choose.Click+=(s,e)=>select();list.MouseDoubleClick+=(s,e)=>select();search.TextChanged+=(s,e)=>list.ItemsSource=items.Where(x=>x.Title.IndexOf(search.Text,StringComparison.OrdinalIgnoreCase)>=0).ToList();dialog.Content=root;dialog.ShowDialog();
+                var dialog=new WallpaperPicker(this,Input("EngineInput").Text,Input(name).Text,name=="DayPathInput",view.Resources);
+                if(dialog.ShowDialog()==true)Input(name).Text=dialog.SelectedPath;
+                await dialog.PreviewCompletion;
             }catch(Exception e){MessageBox.Show(this,e.Message,"HorizonSync");}finally{trigger.IsEnabled=true;}
         }
         void ShowWindow(){Show();WindowState=WindowState.Normal;Activate();}

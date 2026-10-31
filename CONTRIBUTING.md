@@ -34,4 +34,4 @@ Build outputs belong in the ignored `build/` and `dist/` directories. Keep perso
 
 Read `CODEX_HANDOFF.md` and `git status` when resuming work. Update the handoff after a major stage and before long work, including completed work, remaining tasks, build/test evidence, the next operation and actions that must not be repeated. Keep private machine details in the local auxiliary folder.
 
-Wallpaper-selection improvements remain recorded in `docs/ROADMAP.md`; migration and branch organization do not start that feature's implementation.
+Picker changes also require `./tests/Run-PickerTests.ps1`. Use `./tests/Run-PickerTests.ps1 -Ui -Fixture` for an isolated 500-item UI library, or omit `-Fixture` to inspect installed wallpapers without invoking the desktop-switching scheduler. Add `-English` for English. Test data stays in ignored `build/tests/`.

@@ -14,7 +14,7 @@
 [![Build](https://github.com/fireery/HorizonSync-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/fireery/HorizonSync-dev/actions/workflows/ci.yml)
 [![Windows](https://img.shields.io/badge/Windows-10%20%2F%2011-0078D4?style=flat-square)](#requirements)
 [![License](https://img.shields.io/badge/License-GPL--3.0-205c61?style=flat-square)](LICENSE)
-[![Preview](https://img.shields.io/badge/Release-0.1.0--preview.1-8c6b37?style=flat-square)](https://github.com/fireery/HorizonSync-dev/releases)
+[![Development](https://img.shields.io/badge/Development-0.2.0--preview-8c6b37?style=flat-square)](https://github.com/fireery/HorizonSync-dev/pull/2)
 
 </div>
 
@@ -41,7 +41,7 @@ Solar events are calculated locally. HorizonSync runs independently and controls
 
 <p align="center"><img src="docs/images/time-en.png" alt="HorizonSync time settings" width="900"></p>
 
-*The screenshot uses example coordinates. Wallpaper selection improvements are planned for the next version.*
+*The screenshot uses example coordinates. The development branch adds thumbnail selection and centered GIF previews; the published preview package remains unchanged.*
 
 ## Download
 

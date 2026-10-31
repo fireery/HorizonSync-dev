@@ -5,16 +5,19 @@
     <ProjectGuid>{A798CE26-DCE7-4EE8-AD48-C4B7AF081B9A}</ProjectGuid>
     <OutputType>WinExe</OutputType><RootNamespace>HorizonSync</RootNamespace><AssemblyName>HorizonSync</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion><PlatformTarget>AnyCPU</PlatformTarget><Prefer32Bit>false</Prefer32Bit>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <OutputPath>build\app\</OutputPath><Optimize>true</Optimize><DebugType>pdbonly</DebugType>
     <ApplicationManifest>src\app.manifest</ApplicationManifest><AppConfig>HorizonSync.exe.config</AppConfig>
     <ApplicationIcon>assets\HorizonSync.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/><Reference Include="System.Core"/><Reference Include="System.Xaml"/>
+    <Reference Include="System"/><Reference Include="System.Core"/><Reference Include="System.Xml"/><Reference Include="System.Xaml"/>
     <Reference Include="WindowsBase"/><Reference Include="PresentationCore"/><Reference Include="PresentationFramework"/>
     <Reference Include="System.Device"/><Reference Include="System.Drawing"/><Reference Include="System.Web.Extensions"/><Reference Include="System.Windows.Forms"/>
     <Compile Include="src\App.cs"/><Compile Include="src\Core.cs"/><Compile Include="src\Platform.cs"/><Compile Include="src\AssemblyInfo.cs"/>
     <Compile Include="src\Localization.cs"/><Compile Include="src\UiLocalization.cs"/>
+    <Compile Include="src\WallpaperLibrary.cs"/><Compile Include="src\WallpaperPreview.cs"/>
+    <Compile Include="src\WallpaperAuthors.cs"/><Compile Include="src\WallpaperPicker.cs"/>
     <EmbeddedResource Include="src\MainWindow.xaml"><LogicalName>HorizonSync.MainWindow.xaml</LogicalName></EmbeddedResource>
     <EmbeddedResource Include="src\Locales\en.json"><LogicalName>HorizonSync.Locales.en.json</LogicalName></EmbeddedResource>
     <EmbeddedResource Include="LICENSE"><LogicalName>HorizonSync.License</LogicalName></EmbeddedResource>

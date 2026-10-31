@@ -14,7 +14,7 @@
 [![Build](https://github.com/fireery/HorizonSync-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/fireery/HorizonSync-dev/actions/workflows/ci.yml)
 [![Windows](https://img.shields.io/badge/Windows-10%20%2F%2011-0078D4?style=flat-square)](#运行要求)
 [![License](https://img.shields.io/badge/License-GPL--3.0-205c61?style=flat-square)](LICENSE)
-[![Preview](https://img.shields.io/badge/Release-0.1.0--preview.1-8c6b37?style=flat-square)](https://github.com/fireery/HorizonSync-dev/releases)
+[![Development](https://img.shields.io/badge/Development-0.2.0--preview-8c6b37?style=flat-square)](https://github.com/fireery/HorizonSync-dev/pull/2)
 
 </div>
 
@@ -41,7 +41,7 @@ HorizonSync 是配合 **Wallpaper Engine** 使用的轻量 Windows 工具。它�
 
 <p align="center"><img src="docs/images/time-en.png" alt="HorizonSync 时间设置" width="900"></p>
 
-*截图使用示例坐标。壁纸选择体验优化已记录到下一版本。*
+*截图使用示例坐标。开发分支新增缩略图选择与居中 GIF 大图预览；已发布预览包仍为原版本。*
 
 ## 下载
 

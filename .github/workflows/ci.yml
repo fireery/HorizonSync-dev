@@ -16,9 +16,20 @@ jobs:
       - name: Compile application
         shell: pwsh
         run: ./build.ps1
+      - name: Compile project with MSBuild
+        shell: pwsh
+        run: |
+          $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+          $msbuild = & $vswhere -latest -products '*' -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe' | Select-Object -First 1
+          if (-not $msbuild) { throw 'MSBuild was not found.' }
+          & $msbuild HorizonSync.csproj /nologo /verbosity:minimal /p:Configuration=Release /p:OutputPath=build\msbuild\
+          if ($LASTEXITCODE -ne 0) { throw 'Project build failed.' }
       - name: Run complete core and mock CLI tests
         shell: pwsh
         run: ./tests/Run-Tests.ps1
+      - name: Run picker lifecycle and metadata tests
+        shell: pwsh
+        run: ./tests/Run-PickerTests.ps1
       - name: Independent solar comparison
         shell: pwsh
         run: |
