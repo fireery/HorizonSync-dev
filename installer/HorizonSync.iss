@@ -2,7 +2,7 @@
   #define AppBuildDir "..\build\app"
 #endif
 #ifndef AppVersion
-  #define AppVersion "0.2.0-preview.1"
+  #define AppVersion "0.2.0-preview"
 #endif
 [Setup]
 AppId={{D4A7B69D-48D4-4B79-BD55-E29F1632A9BA}

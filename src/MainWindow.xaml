@@ -87,7 +87,7 @@
           <TextBlock Text="运行与校对" Style="{StaticResource Section}"/><Border Style="{StaticResource Card}"><TextBlock LineHeight="28" Text="日期、时间与时区始终采用 Windows 当前值。使用系统定位时，每次启动读取系统位置；有结果就直接采用，无法获取时保留坐标并提示。&#10;&#10;日出日落在本地估算。系统定位本身可能使用网络或缓存。程序每 15 秒检查一次；唤醒、解锁及 Wallpaper Engine 重启后重新对齐。关闭窗口会留在托盘，彻底退出请使用托盘菜单。"/></Border>
           <TextBlock Text="恢复与卸载" Style="{StaticResource Section}"/><Border Style="{StaticResource Card}"><TextBlock LineHeight="28" Text="关闭登录启动选项并保存，从托盘彻底退出，然后在 Wallpaper Engine 中加载原播放列表。删除便携文件夹即可卸载。&#10;&#10;settings.xml 为本机设置，.bak 为上次备份；activity.log 为操作记录。坐标只保存在本机。安装模式保存到用户数据目录，便携模式保存到 data 文件夹。本程序不会修改 Windows 时钟或定位权限。"/></Border>
           <TextBlock Text="开源许可" Style="{StaticResource Section}"/><Border Style="{StaticResource Card}"><StackPanel><TextBlock Text="HorizonSync 按 GPL-3.0-only 发布，不提供担保。"/><TextBlock Text="Copyright © 2026 fireery and HorizonSync contributors" Style="{StaticResource Muted}" Margin="0,8,0,14"/><Button x:Name="LicenseButton" Content="查看许可证" HorizontalAlignment="Left"/></StackPanel></Border>
-          <TextBlock Text="HorizonSync 0.2.0-preview.1" Style="{StaticResource Muted}" Margin="0,12,0,0"/>
+          <TextBlock Text="HorizonSync 0.2.0-preview" Style="{StaticResource Muted}" Margin="0,12,0,0"/>
         </StackPanel>
       </Grid>
     </ScrollViewer>

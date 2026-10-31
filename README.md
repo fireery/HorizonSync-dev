@@ -14,7 +14,7 @@
 [![Build](https://github.com/fireery/HorizonSync-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/fireery/HorizonSync-dev/actions/workflows/ci.yml)
 [![Windows](https://img.shields.io/badge/Windows-10%20%2F%2011-0078D4?style=flat-square)](#requirements)
 [![License](https://img.shields.io/badge/License-GPL--3.0-205c61?style=flat-square)](LICENSE)
-[![Development](https://img.shields.io/badge/Development-0.2.0--preview.1-8c6b37?style=flat-square)](https://github.com/fireery/HorizonSync-dev/pull/2)
+[![Development](https://img.shields.io/badge/Development-0.2.0--preview-8c6b37?style=flat-square)](https://github.com/fireery/HorizonSync-dev/pull/2)
 
 </div>
 
