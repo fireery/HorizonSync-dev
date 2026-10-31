@@ -1,37 +1,51 @@
-# Development workflow / 开发协作
+# 贡献与开发协作
 
-## Branches
+## 主要语言
 
-| Branch | Purpose | Merge destination |
+仓库以简体中文为主。请优先使用中文编写 README、问题标题与正文、合并请求说明、开发交接和发布说明。英文用户文档保留为辅助版本；代码标识、命令、路径、API 和产品名称保持原样。
+
+默认中文首页为 `README.md`，英文说明为 `README.en.md`；`README.zh-CN.md` 保留旧链接入口。更新时请检查中英文切换链接。
+
+## 报告问题和提出建议
+
+请使用仓库的中文 Issue 模板，描述实际行为、预期结果、复现步骤和软件版本。功能建议请说明使用场景。已有问题可直接补充信息，避免重复提交。
+
+## 分支安排
+
+| 分支 | 用途 | 合并去向 |
 | --- | --- | --- |
-| `main` | Published code; remains the GitHub default branch | A reviewed release from `develop` |
-| `develop` | Integration branch for the next version; default local working branch | `main` when ready for release |
-| `feature/<short-name>` | One agreed feature, using lowercase English words separated by hyphens | `develop` |
+| `main` | 默认分支，保留发布代码和面向用户的文档 | 接收经过验证的发布；独立文档修正可单独审阅 |
+| `develop` | 下一版本的集成开发 | 发布前合入 `main` |
+| `feature/<简短英文名>` | 单项功能或文档修改 | 通常合入 `develop`；默认首页等独立文档修正可直接面向 `main` |
 
-Start feature branches from an up-to-date `develop`. Open feature pull requests against `develop`, not `main`. Create branches when work starts; do not create empty placeholder branches.
+从最新目标分支开始工作，合并请求使用中文说明改了什么、为什么改、如何验证。文档修正需要同步到开发分支，避免之后合并时恢复旧内容。
 
 ```powershell
 git switch develop
 git pull --ff-only origin develop
 git switch -c feature/your-feature
-# Implement and validate the agreed change.
+# 完成修改和验证，再提交合并请求。
 git push -u origin feature/your-feature
 ```
 
-`main` 用于发布，`develop` 汇总下一版本开发，具体功能从 `develop` 建立 `feature/*` 分支并合回 `develop`。本地日常工作停留在 `develop` 或当前功能分支。
+## 构建与验证
 
-## Validation and releases
+程序改动运行 `./build.ps1` 和 `./tests/Run-Tests.ps1`。`0.2.0-preview` 的选择器改动还需运行 `./tests/Run-PickerTests.ps1`。CI 会检查适用的构建、完整核心／模拟命令行测试及独立太阳事件对比。
 
-Run `./build.ps1` and `./tests/Run-Tests.ps1` for relevant changes. GitHub Actions runs the full core/mock CLI suite and the independent solar comparison. If local application control blocks a mock executable, record that limitation and use the explicit `-SkipCli` option for a separately reported partial run; never bypass the control or call the partial run a full pass.
+如果 Windows 应用控制阻止模拟程序，记录完整测试失败的原因，再单独使用 `-SkipCli` 运行部分检查；不要绕过系统策略，也不要将部分结果称为完整通过。
 
-Before a release, review a pull request from `develop` to `main`, require the relevant checks to pass, and record remaining real-device validation limits. Create the version tag and GitHub Release from the resulting `main` commit. Keep previews marked as prereleases. Never move an existing release tag or silently replace its attachments.
+开发分支可用 `./tests/Run-PickerTests.ps1 -Ui` 检查真实已安装库，加入 `-English` 检查英文界面。`-Fixture` 是明确标注的 500 项合成测试库，不代表真实壁纸，测试数据保存在忽略的 `build/tests/`。不要使用高对比闪烁样本进行可见测试。
 
-This document describes the workflow; it does not enable repository protection rules or change account permissions.
+仅修改文档时，检查 Markdown、相对链接、语言入口、模板和提交范围即可；不要为文案修改重复运行长时间压力测试。
 
-## Local files and handoff
+## 发布
 
-Build outputs belong in the ignored `build/` and `dist/` directories. Keep personal profiles, logs, toolchains and design drafts outside the repository. Historical development materials are preserved in the sibling `HorizonSync-local/` folder; they are not an alternative source checkout.
+发布前审阅 `develop` 到 `main` 的合并请求，通过适用检查，明确尚未完成的真机验证。开发预览版保留预发布标记，不得将未验证结果写为稳定版承诺。
 
-Read `CODEX_HANDOFF.md` and `git status` when resuming work. Update the handoff after a major stage and before long work, including completed work, remaining tasks, build/test evidence, the next operation and actions that must not be repeated. Keep private machine details in the local auxiliary folder.
+已发布标签和附件不得擅自移动或替换；用户明确要求修改发布名称时，应保持程序内容、对应提交及校验值，并记录处理过程。不要修改全局 Git 配置或仓库权限。
 
-Picker changes also require `./tests/Run-PickerTests.ps1`. Use `./tests/Run-PickerTests.ps1 -Ui -Fixture` for an isolated 500-item UI library, or omit `-Fixture` to inspect installed wallpapers without invoking the desktop-switching scheduler. Add `-English` for English. Test data stays in ignored `build/tests/`.
+## 本地文件与恢复
+
+构建产物保存在忽略的 `build/`、`obj/` 和 `dist/`。个人配置、日志、坐标、工具链、设计草稿与历史归档放在相邻的 `HorizonSync-local/`，不上传到仓库。
+
+恢复任务时，先读取 `CODEX_HANDOFF.md` 和 `git status`。每完成一个主要阶段或开始长时间工作之前，更新交接记录，写清已完成内容、剩余工作、测试状态、恢复第一步和不要重复执行的事项。

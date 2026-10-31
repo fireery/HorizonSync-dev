@@ -23,7 +23,7 @@ if ($IsccPath) {
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $sourceArchive = Join-Path $distRoot 'HorizonSync-0.2.0-preview-source.zip'
 $sourceDirectories = @('src','tests','docs','installer','assets','.github')
-$sourceFiles = @('README.md','README.zh-CN.md','LICENSE','.gitignore','HorizonSync.csproj','HorizonSync.exe.config','build.ps1','package.ps1','CODEX_HANDOFF.md') | ForEach-Object { Get-Item -LiteralPath (Join-Path $projectRoot $_) }
+$sourceFiles = @('README.md','README.en.md','README.zh-CN.md','CONTRIBUTING.md','LICENSE','.gitignore','HorizonSync.csproj','HorizonSync.exe.config','build.ps1','package.ps1','CODEX_HANDOFF.md') | ForEach-Object { Get-Item -LiteralPath (Join-Path $projectRoot $_) }
 foreach ($sourceDirectory in $sourceDirectories) { $sourceFiles += Get-ChildItem -LiteralPath (Join-Path $projectRoot $sourceDirectory) -File -Recurse -Force }
 $localDesignPreviews = @('assets\brand\approved-concept.png','assets\brand\HorizonSync-brand-preview.png') | ForEach-Object { Join-Path $projectRoot $_ }
 $sourceFiles = $sourceFiles | Where-Object { $_.FullName -notin $localDesignPreviews }
