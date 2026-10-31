@@ -1,40 +1,44 @@
-# HorizonSync development handoff
+# HorizonSync 开发交接
 
-## Current state — 2026-11-01
+## 当前状态（2026-11-01）
 
-- Public repository: https://github.com/fireery/HorizonSync-dev.
-- Current development version: `0.2.0-preview` (assembly/file/manifest `0.2.0.0`); unpublished. UI, package names and installer metadata updated at the user's request.
-- Published naming update completed at the user's explicit request: release now uses `v0.1.0-preview`; the original `v0.1.0-preview.1` tag remains a compatibility alias at the same commit. Portable/setup filenames shortened. All original four asset IDs, sizes and SHA256 values preserved; the original index is `SHA256SUMS-original.txt`, with a new `SHA256SUMS.txt` for the shortened filenames. All five assets were downloaded and hash-verified. Before/after release snapshots remain in the private local validation folder. Do not repeat this rename or rebuild the old binaries.
-- Published prerelease: `v0.1.0-preview`, commit `458d0484398eb21773444b166aaa55235e4434cb`. All four release attachments were verified against their original SHA256 values. Do not rebuild or replace those attachments.
-- The full repository history has been cloned into the owner's new programming directory. The previous workspace is preserved in the sibling `HorizonSync-local/workspace-archive/`; released artifacts also have a dedicated copy in `HorizonSync-local/releases/v0.1.0-preview.1/`.
-- Migration verified 1,177 files, 91 directories and 89,693,909 bytes by relative path, size and SHA256. All 41 public source files match the release's Git objects. The local auxiliary folder contains the complete historical handoff and migration reports; do not upload it.
-- `main` remains the default GitHub branch and the published commit. Local development uses `develop`, tracking `origin/develop`. Create `feature/<short-name>` branches only when a feature starts. See `CONTRIBUTING.md`.
+- 仓库：https://github.com/fireery/HorizonSync-dev。默认分支为 `main`，发布代码保持 `0.1.0-preview`；下一版本 `0.2.0-preview` 已通过 PR #2 合入 `develop`，尚未发布。
+- 用户要求仓库以简体中文为主。正在将默认 README、Issue／PR 说明、贡献与发布指南、验证记录和新增反馈模板改为中文；英文 README 保留为 `README.en.md`，旧中文入口保留兼容链接。
+- 中文文档需要同步到 `main` 与 `develop`。默认首页文档修正可单独审阅合入 `main`，不能将未发布功能代码一并合入。
+- 旧发布已更名为 `v0.1.0-preview`，对应提交 `458d0484398eb21773444b166aaa55235e4434cb`；旧 `.1` 标签为兼容别名。原四个附件的 ID、大小和 SHA256 没有变化，新旧校验索引均保留，五个附件已重新下载并校验。
 
-## Product decisions
+## 已确认的产品决定
 
-- Independent Windows companion for Wallpaper Engine, with offline sunrise/sunset calculations, fixed-time fallback and separate offsets. No Auto Dark Mode dependency.
-- Windows time and time zone take precedence. In system-location mode, available Windows coordinates replace stored coordinates; failures preserve the fallback and explain the issue.
-- WPF interface with unified compact controls, icon-only sidebar and bottom-left settings without a divider. Wallpaper Engine paths belong in settings; the wallpaper page shows readiness and an actionable settings link.
-- Approved artistic monochrome brand assets, English/Simplified Chinese language dropdown and GPL-3.0-only licensing. Do not restore rejected colored icon concepts or the old WinForms interface.
-- Issue #1 implementation approved: virtualized thumbnail grid, centered large GIF preview, one disposable preview session, bounded thumbnail cache and optional author enrichment. Work on `feature/wallpaper-thumbnail-picker`.
+- 独立配合 Wallpaper Engine 工作，本地计算日出日落，不依赖 Auto Dark Mode；提供固定时间和独立偏移设置。
+- 以 Windows 时间与时区为准；系统坐标可用时更新备用位置，不可用时保留并说明。
+- 使用当前 WPF 界面、单色品牌和中英文下拉框；程序路径位于设置页，壁纸页显示就绪状态与设置入口。
+- 选择器使用回收式网格、居中大图和单个 GIF 会话；支持暂停、取消和资源释放，缓存限制为 128 张／24 MiB。不要恢复旧文字列表或高对比闪烁测试样本。
+- 许可证为 GPL-3.0-only；保持用户配置格式和原播放列表。
 
-## Build and validation
+## 已完成的验证
 
-- The published application passed all 46 core/mock CLI checks and the independent comparison of 60 solar events, with maximum difference 30.9 seconds. See `docs/VALIDATION.md`.
-- The installed engine was detected and the actual green readiness state inspected. Real wallpaper switching, successful Windows location acquisition, sleep/resume/unlock, installer install/upgrade/uninstall and multi-monitor DPI remain open real-device checks. The release is still a preview.
-- New-path validation passed: application build, all 46 core/mock CLI tests and 60 solar-event comparisons (maximum difference 30.9 seconds). Full local process checks now passed without changing application-control settings. A second complete manifest verification passed before removing the old workspace copies. Cleanup is complete; only a migration pointer remains at the old location.
+- 完整 CI 已通过两种构建、46 项核心／模拟命令行测试、36 项选择器测试、太阳事件对比和打包。见 `docs/VALIDATION.md`。
+- GitHub 全新克隆与提交哈希核对、构建、打包和选择器测试通过；克隆副本的完整模拟程序测试被应用控制阻止，43 项部分检查不能称为完整通过。
+- 已检查 56 张真实壁纸预览、中英文浏览、GIF 播放／暂停、作者查询、搜索、Esc 返回与 Enter 确认。
+- 原生高 DPI、跨显示器、长时间读屏、真实切换和安装器生命周期仍有未完成检查，详见验证记录。
 
-## First operation on resume
+## 迁移与本地资料
 
-Read this file and `git status --short --branch`. Implementation is complete on `feature/wallpaper-thumbnail-picker`, draft PR https://github.com/fireery/HorizonSync-dev/pull/2 targeting develop. Development version is 0.2.0-preview. Code commit 7463d52c2b008659b6f01cca7323e8c0174e0c8e was uploaded, pulled into a separate fresh GitHub clone and built/packaged; 43 explicitly partial core checks plus all 36 picker checks passed there. A full clone-local mock attempt was blocked by Windows application control; do not call the partial run a full pass. Full original-workspace 46 + 36 checks passed, and GitHub PR CI 41237909437 passed all builds/tests/solar/package checks, including VS MSBuild. Real Chinese/English library UI, GIF playback/pause, author lookup, search, Escape return-to-card and Enter confirmation inspected; all 56 installed previews decode. The published old release rename and checksum-preserving downloads are complete. Next review PR #2 and outstanding native DPI/monitor/screen-reader checks; do not merge or publish 0.2.0-preview without the next review decision. Do not repeat migration, release renaming, 200-session stress runs, or change application-control policy. Local portable/source packages are in ignored dist/.
+- 正式源码位于此仓库；私人资料、工具与归档位于相邻 `HorizonSync-local/`，不上传。
+- 原迁移按相对路径、大小和 SHA256 核对了 1,177 个文件、91 个目录、89,693,909 字节；41 个公开源码文件与发布 Git 对象一致。迁移与清理均已完成，不重复执行。
+- 已发布原始附件仍保存在辅助目录的旧名称归档中，不改写归档。构建结果保存在忽略的 `build/`、`obj/` 和 `dist/`。
 
-## Do not repeat
+## 恢复后的第一步
 
-- Do not recreate the repository, rewrite `main`, move the published tag or republish the preview.
-- Do not upload local archives, profiles, coordinates, logs, toolchains or rejected design drafts.
-- Do not bypass Windows application-control restrictions or change global Git identity/configuration.
-- Do not overwrite a running executable, discard unsaved selections or alter Wallpaper Engine's playlist as part of migration.
+先读取此文件并执行 `git status --short --branch`，确认中文文档分支与 PR 状态。中文首页、模板和文档的本地链接检查已通过，仓库简介、Issue #1、PR #2 及旧版发布说明已改为中文，附件没有改变。本轮分别通过 PR #3（main）与 PR #4（develop）同步文档。恢复时先核对这两个 PR 的合并与 CI 状态；均已完成时直接开始下一项工作，不重新翻译或重复创建同类 PR。Issue #1 与 PR #2 的标题、正文已改为中文，PR #2 的合并状态已经核对。
 
-## Task recovery rule
+## 不要重复执行
 
-Maintain this root `CODEX_HANDOFF.md` after each major stage and before long work. Record completed and remaining work, build/test evidence, the first operation after recovery and actions not to repeat. If usage limits are near, avoid starting large new work and leave the repository consistent and recoverable.
+- 不重做迁移、旧发布改名、附件下载校验或 200 次压力测试。
+- 不重写已发布代码、移动旧标签、替换已发布附件，也不自动发布 `0.2.0-preview`。
+- 不上传个人配置、坐标、日志、归档或工具链；不修改全局 Git 身份、应用控制或系统隐私设置。
+- 不覆盖正在运行的程序，不改变桌面壁纸或 Wallpaper Engine 播放列表。
+
+## 长任务恢复规则
+
+每完成一个主要阶段，或开始长时间工作前，更新交接记录。额度接近限制时停止启动大型工作，保留一致、可恢复的仓库状态，记录已完成内容、剩余任务、测试状态、恢复第一步与无需重复的事项。

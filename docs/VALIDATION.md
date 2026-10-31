@@ -1,63 +1,41 @@
-# Validation status
+# 验证记录
 
-Published preview baseline: 2026-10-31, version 0.1.0-preview (renamed without changing payloads). Current development version: 0.2.0-preview; see Issue #1 validation below.
+## 版本与分支
 
-## Completed
+- **已发布：** `0.1.0-preview`，对应提交 `458d0484398eb21773444b166aaa55235e4434cb`。
+- **开发版本：** `0.2.0-preview`，壁纸选择器已通过 PR #2 合入 `develop`，尚未作为 Release 发布。
+- 本文以中文说明验证范围，历史英文详细记录保留在 [VALIDATION.en.md](VALIDATION.en.md)。
 
-- Release compilation using the Windows .NET Framework compiler.
-- Startup discovery found the installed Wallpaper Engine location. The waiting status and the direct link to its settings section were inspected. A later run in the ordinary user environment also detected the running engine and showed the green ready state. The wallpaper page hides the installation path, and the sidebar shows only icons with accessible names and tooltips.
-- WPF UI displayed and inspected on the current computer, with per-monitor DPI support. The user confirmed the first DPI correction improved clarity; the interface was then redesigned using consistent navigation, cards and choices. The sidebar was reduced to icons, and button/input padding was tightened without reducing font sizes.
-- 43 current core checks pass with `Run-Tests.ps1 -SkipCli`: schedule boundaries, midnight, NZ spring and US autumn DST, invalid/repeated local hours, offsets, polar day/night, system clock/timezone precedence, location precedence/fallback, argument quoting, restricted registry access, missing cached installations, atomic settings backups, corrupt/nil/future configuration recovery, and rapid repair backup uniqueness, English resource loading, localized validation, draft saving before location setup, language persistence and Chinese restoration.
-- Before the configuration expansion, 31 checks including three mock process integration checks passed. Those mock checks verified Unicode, spaces and shell metacharacters remain one file argument, exited engine instances are detected, and a stopped engine is not launched.
-- On the latest rerun, Windows application control blocked the newly compiled mock executable. This local full-test attempt failed and was followed by a separate explicit partial run; the local partial run is not a full-suite pass. The mock tests remain enabled by default for an unrestricted development/CI environment.
-- 60 solar events across eight locations and four seasons compared with Astral 3.2: maximum difference 30.9 seconds, with a 120-second tolerance. Astral is used only for optional independent verification and is not an application dependency.
-- Installer compilation using Inno Setup 7.1.1 completed successfully. The build tool was obtained from the official source and its Authenticode signature validated as Pyrsys B.V.; it was extracted in workspace portable mode.
+## 已发布预览版的验证
 
-## Not yet validated
+- Windows .NET Framework 编译和实际 WPF 界面检查通过；已检测到安装位置和正在运行的 Wallpaper Engine，并看到就绪状态。
+- 本地部分测试曾通过 43 项；完整测试曾因 Windows 应用控制阻止模拟程序而失败。部分测试不能当作完整通过。
+- [公开 CI](https://github.com/fireery/HorizonSync-dev/actions/runs/41112750368)通过全部 46 项核心／模拟命令行检查，覆盖计划边界、跨午夜、夏令时、偏移、极昼／极夜、定位回退、路径参数、配置备份及损坏恢复等。
+- 8 个地区、4 个季节的 60 个太阳事件与 Astral 3.2 对比通过，最大差异 30.9 秒，容差 120 秒。Astral 仅用于独立验证，不是程序依赖。
+- Inno Setup 7.1.1 安装器编译通过；编译器来源和签名已核对。此结果不代表安装、升级和卸载流程已经完成真机验证。
+- 已检查单色图标、中英文切换、语言下拉框和界面清晰度；不代表所有 DPI 或读屏环境已经验证。
 
-- Real Wallpaper Engine switching on actual day/night wallpapers and monitor layouts.
-- Actual sleep/resume, unlock and engine-restart behavior end to end.
-- Successful Windows system-location acquisition; this environment returned no location. The actual fallback UI was inspected; successful coordinate replacement is covered by core tests.
-- Actual per-user installer install, upgrade and uninstall, including startup registration.
-- Multi-monitor DPI changes, 100/125/150/200% scaling and keyboard/screen-reader usability on separate machines.
+## 0.2.0-preview 壁纸选择器
 
-- Publisher signing and a full public release lifecycle. The public repository now exists at https://github.com/fireery/HorizonSync-dev and GPL-3.0-only has been selected.
+- [完整 CI](https://github.com/fireery/HorizonSync-dev/actions/runs/41238218965)通过脚本构建、Visual Studio MSBuild、46 项核心／模拟命令行检查、36 项选择器检查、太阳事件对比和打包。
+- 已从 GitHub 全新克隆并核对提交哈希，重新完成构建、打包和 36 项选择器检查。拉取副本的完整模拟程序测试被本机应用控制阻止；另行明确标注的 43 项部分测试通过，完整结果以 CI 为准。
+- 选择器检查覆盖 500 项扫描与去重、不同壁纸类型、损坏元数据、缺失／透明图片、缓存双重上限、GIF 首帧与循环、缓冲区复用、暂停、200 次会话释放、快速切换、取消及作者查询。
+- 预热后，连续三轮各 50 次会话的测试内存与句柄保持稳定。测量时仅测试程序请求垃圾回收，产品代码不强制回收；小样本测量不能作为整个应用的内存上限。
+- 已读取全部 56 张本机已安装壁纸的预览，检查真实中英文浏览、大图、播放／暂停、作者查询、搜索、Esc 返回和 Enter 确认。
+- UI 测试使用与产品一致的 .NET Framework 4.8 目标与配置。已补齐 MSBuild 的 System.Xml 引用并避免重复生成 TargetFramework 特性。
 
-The application and installer are development previews. Do not label this snapshot production-ready.
+## 尚未完成的真机检查
 
-## Final preview UI
+- 真实桌面昼夜切换与多显示器编号、实际睡眠／唤醒、解锁和引擎重启后的完整流程。
+- 成功获取 Windows 系统位置；当前环境主要验证了失败回退，坐标替换由核心测试覆盖。
+- 安装、重装、升级和卸载，以及登录启动项的完整生命周期。
+- 原生 150%／200% DPI、跨显示器切换、长时间读屏操作，以及较大真实 GIF 的长期 CPU／内存表现。
+- 发布者签名和稳定版发布流程。
 
-- English pages were inspected with the approved monochrome icon, compact inputs and bottom-left settings navigation.
-- Live English-to-Chinese switching was exercised. One startup hint found during inspection was corrected.
-- Language selection now uses the requested dropdown (Windows / Simplified Chinese / English).
+这些检查未完成前，程序和安装器继续作为开发预览版，不应称为已完成全部真机验证的稳定版。
 
-## Public CI result
+## 发布名称与附件
 
-GitHub Actions passed all 46 core and mock CLI checks for application code commit 28b32482530bf2165146dc345de6214044233fbe, including the three process checks blocked locally. The independent 60-event solar comparison also passed with a maximum difference of 30.9 seconds.
+旧版发布已按用户要求改为 `v0.1.0-preview`，旧 `.1` 标签保留为兼容别名，提交没有改变。便携包和安装包改名后，原四个附件的 ID、大小和 SHA256 保持不变；原校验索引保留为 `SHA256SUMS-original.txt`，新 `SHA256SUMS.txt` 对应缩短后的名称。五个附件均已重新下载并校验。
 
-Run: https://github.com/fireery/HorizonSync-dev/actions/runs/41112750368
-
-The remaining real-device and installer lifecycle checks above are still open; this release remains a prerelease.
-
-
-## 0.2.0-preview / Issue #1 development validation — 2026-11-01
-
-- Application script build passed. All 46 core/mock CLI checks and 36 deterministic picker checks passed locally.
-- Picker checks cover 500-item discovery/deduplication, scene/video/web paths, corrupt metadata, missing/broken/transparent images, file-handle release, independent LRU count/byte limits, real GIF frame progression/looping, reused pixel buffers, pause-to-static, 200 actual animation sessions, rapid replacement, cancellation and both GIF budgets.
-- After warm-up, the final three measured batches of 50 GIF sessions retained approximately 1.7 MiB managed memory; private bytes were approximately 36.7 MiB and handle counts stayed at 393–395. Garbage collection was requested only in the measurement harness, never by application code. These are small deterministic fixture measurements, not a whole-app memory cap.
-- All 56 locally installed wallpapers had decodable static previews, with no metadata errors. Real Chinese and English thumbnail grids, enlarged GIFs, search, live author lookup, pause, Escape returning focus to the card and Enter confirmation were inspected. The UI harness uses the application's .NET Framework 4.8 target/configuration; this is necessary to reproduce production TLS and WPF compatibility behavior.
-- The centered GIF preview reuses one worker pixel buffer, one coalesced UI staging buffer and one WriteableBitmap; it does not enqueue a dispatcher operation or allocate an immutable full-size image for each frame. Leaving a preview clears frame references and cancels/releases the decoder before the next session starts. Pause provides a static first frame.
-- Synthetic stress assets are separate from the installed library. Their animation uses near-identical muted colors, and the synthetic UI is explicitly labeled. No private wallpaper images, library names, author IDs, local paths or logs are included in the public repository.
-- GitHub round trip: a fresh clone of `9e076d83da174f16b9715c3d74d54e5591d03acc` matched the uploaded commit and built. Its complete core run failed because Windows application control blocked the spawned mock engine. A separately labeled `-SkipCli` run passed 43 checks; all 36 picker checks passed. This partial local result is not a full-suite pass.
-- Full GitHub CI passed for that commit, including all core/mock CLI and picker checks, the independent solar comparison and portable packaging: https://github.com/fireery/HorizonSync-dev/actions/runs/41237486881.
-- An additional project-build check found two existing project-file omissions: `System.Xml` was not explicitly referenced, and MSBuild generated a duplicate of the manually supplied TargetFramework attribute. Both are corrected. Local legacy MSBuild now builds, but reports missing .NET 4.8 targeting-pack/GAC fallback warnings; CI now also builds the project using Visual Studio MSBuild. Visual Studio project compilation and the complete CI workflow passed for follow-up commit `3949128a18b1c7542e82b2fba154c3b6a402a873`: https://github.com/fireery/HorizonSync-dev/actions/runs/41237644206.
-
-Remaining feature validation: native 150%/200% DPI and monitor transitions, extended screen-reader use, and larger real-world GIF memory/CPU profiling. The tests above do not claim those checks. Previewing or selecting a wallpaper does not invoke the desktop-switching command; the original real-device/installer validation gaps remain open.
-
-
-### Final GitHub round trip and version naming
-
-- Commit `7463d52c2b008659b6f01cca7323e8c0174e0c8e` (`0.2.0-preview`) was pulled into the separate GitHub validation checkout, rebuilt and packaged. Its 43 explicitly partial core checks and all 36 picker checks passed. File/product versions were verified as `0.2.0.0` / `0.2.0-preview`.
-- Complete PR CI passed, including script build, Visual Studio MSBuild, complete core/mock CLI tests, picker lifecycle tests, solar comparison and packaging: https://github.com/fireery/HorizonSync-dev/actions/runs/41237909437.
-- At the user's request, the old published release was renamed to `v0.1.0-preview` at unchanged commit `458d0484398eb21773444b166aaa55235e4434cb`. The original `.1` tag remains an alias. Portable/setup assets were renamed in place; all four original payloads retain their original asset IDs, sizes and SHA256 values. The original checksum index is preserved as `SHA256SUMS-original.txt`; a new primary index matches the shortened names. All five release attachments were downloaded again and their hashes verified. Release: https://github.com/fireery/HorizonSync-dev/releases/tag/v0.1.0-preview.
-- PR #2 remains a draft targeting develop; the 0.2.0-preview build has not been merged or published as a Release. The native DPI/monitor and other real-device limitations recorded above still apply.
+只翻译仓库文档和 GitHub 说明，不重新打包或替换已发布附件。

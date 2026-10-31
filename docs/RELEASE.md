@@ -1,24 +1,29 @@
-﻿# Release checklist
+# 发布检查
 
-Repository: https://github.com/fireery/HorizonSync-dev. The owner authorized source upload and downloadable preview packages. License: GPL-3.0-only. The initial release is a prerelease; unverified hardware/installer scenarios remain documented.
+仓库：https://github.com/fireery/HorizonSync-dev。许可证为 `GPL-3.0-only`，提供源码、便携包和安装包。开发预览版仍有真机验证缺口，不能按稳定版描述。
 
-Before a public preview:
+## 发布前检查
 
-- Confirm GPL-3.0-only is included in repository, application information, installer, portable package and corresponding source.
-- Verify the existing fireery/HorizonSync-dev repository and its support/release URLs.
-- Run `build.ps1` and the complete `tests/Run-Tests.ps1` on a normal Windows machine or CI runner.
-- Check each choice, input, browse dialog, wallpaper-library selector, tray action and disabled/failed state.
-- Use installed Wallpaper Engine to validate day/night commands, the selected monitor, custom presets and concurrent playlist behavior. Record supported behavior rather than assume it.
-- Validate system-location success/failure, manual fallback, changed timezone, midnight, manual clock changes and DST.
-- Test cold startup with Wallpaper Engine delayed, engine restart, sleep/resume, lock/unlock and complete exit.
-- Test clean per-user installation, same-version reinstall, upgrade and uninstall. Verify user configuration survives, and startup registration is removed only when it points to the uninstalled copy.
-- Check per-monitor DPI and supported Windows versions, plus keyboard focus and accessibility names.
-- Build clean installer and portable artifacts. Include only app files, runtime configuration and relevant user documentation; exclude user settings, paths, logs, toolchains and test profiles.
-- Generate SHA-256 checksums. Decide on publisher signing; do not imply an unsigned build is signed. No automatic updater is included in this preview.
-- Write release notes with known limitations and label the release as a prerelease until the required validation is complete.
+- 确认仓库、程序说明、安装器、便携包和对应源码包含 GPL-3.0-only 许可证。
+- 核对版本号、支持与下载链接，运行适用的构建和完整测试；选择器修改还需运行开发分支的选择器测试。
+- 检查各页面、输入、文件选择、壁纸库、托盘、禁用状态和失败提示。
+- 使用真实 Wallpaper Engine 检查昼夜切换、显示器编号、预设和播放列表并存行为；命令返回成功不能代替目视确认。
+- 检查系统定位成功／失败、备用坐标、时区、跨午夜、手动修改时间和夏令时。
+- 检查 Wallpaper Engine 延迟启动、重启、睡眠／唤醒、锁定／解锁和彻底退出。
+- 检查全新安装、重装、升级及卸载；确认用户配置保留，且只移除指向被卸载程序的登录启动项。
+- 检查不同 Windows 版本、跨显示器 DPI、键盘焦点和辅助功能名称。
+- 打包只包含程序、运行配置及使用说明，排除个人设置、路径、日志、工具和测试资料。
+- 生成 SHA256；如果没有签名，不得声称已签名。当前预览版不含自动更新器。
+- 使用中文编写发布说明，写清功能、下载方式、已通过的验证和已知限制，保留预发布标记。
 
-Before a stable release, close the documented validation gaps, review error reporting and configuration migration, and repeat install/upgrade/uninstall tests with the final signed build if signing is adopted.
+## 构建安装包与便携包
 
-## Build packages
+```powershell
+.\package.ps1
+# 如需同时构建安装器，传入本机 Inno Setup 7 编译器位置：
+.\package.ps1 -IsccPath '<ISCC.exe 的绝对路径>'
+```
 
-Run package.ps1 to build a portable ZIP and source archive. Pass -IsccPath with the Inno Setup 7 compiler path to also produce the installer. Files and SHA256SUMS.txt are written to dist. CI builds and tests Windows source and a portable preview; it does not publish releases automatically.
+文件和 `SHA256SUMS.txt` 输出到 `dist/`。CI 会构建适用的 Windows 源码和便携预览，不会自动创建 Release。
+
+发布稳定版前，应完成[验证记录](VALIDATION.md)中的缺口，审阅错误处理和配置迁移；若采用签名，还需针对最终签名包重复安装、升级与卸载检查。
