@@ -1,6 +1,6 @@
 # Validation status
 
-Development snapshot: 2026-10-31, version 0.1.0-preview.1.
+Published preview baseline: 2026-10-31, version 0.1.0-preview.1. Current development version: 0.2.0-preview.1; see Issue #1 validation below.
 
 ## Completed
 
@@ -40,7 +40,7 @@ Run: https://github.com/fireery/HorizonSync-dev/actions/runs/41112750368
 The remaining real-device and installer lifecycle checks above are still open; this release remains a prerelease.
 
 
-## Issue #1 development validation — 2026-11-01
+## 0.2.0-preview.1 / Issue #1 development validation — 2026-11-01
 
 - Application script build passed. All 46 core/mock CLI checks and 36 deterministic picker checks passed locally.
 - Picker checks cover 500-item discovery/deduplication, scene/video/web paths, corrupt metadata, missing/broken/transparent images, file-handle release, independent LRU count/byte limits, real GIF frame progression/looping, reused pixel buffers, pause-to-static, 200 actual animation sessions, rapid replacement, cancellation and both GIF budgets.
@@ -50,6 +50,6 @@ The remaining real-device and installer lifecycle checks above are still open; t
 - Synthetic stress assets are separate from the installed library. Their animation uses near-identical muted colors, and the synthetic UI is explicitly labeled. No private wallpaper images, library names, author IDs, local paths or logs are included in the public repository.
 - GitHub round trip: a fresh clone of `9e076d83da174f16b9715c3d74d54e5591d03acc` matched the uploaded commit and built. Its complete core run failed because Windows application control blocked the spawned mock engine. A separately labeled `-SkipCli` run passed 43 checks; all 36 picker checks passed. This partial local result is not a full-suite pass.
 - Full GitHub CI passed for that commit, including all core/mock CLI and picker checks, the independent solar comparison and portable packaging: https://github.com/fireery/HorizonSync-dev/actions/runs/41237486881.
-- An additional project-build check found two existing project-file omissions: `System.Xml` was not explicitly referenced, and MSBuild generated a duplicate of the manually supplied TargetFramework attribute. Both are corrected. Local legacy MSBuild now builds, but reports missing .NET 4.8 targeting-pack/GAC fallback warnings; CI now also builds the project using Visual Studio MSBuild. That new CI step still needs verification on the follow-up commit.
+- An additional project-build check found two existing project-file omissions: `System.Xml` was not explicitly referenced, and MSBuild generated a duplicate of the manually supplied TargetFramework attribute. Both are corrected. Local legacy MSBuild now builds, but reports missing .NET 4.8 targeting-pack/GAC fallback warnings; CI now also builds the project using Visual Studio MSBuild. Visual Studio project compilation and the complete CI workflow passed for follow-up commit `3949128a18b1c7542e82b2fba154c3b6a402a873`: https://github.com/fireery/HorizonSync-dev/actions/runs/41237644206.
 
 Remaining feature validation: native 150%/200% DPI and monitor transitions, extended screen-reader use, and larger real-world GIF memory/CPU profiling. The tests above do not claim those checks. Previewing or selecting a wallpaper does not invoke the desktop-switching command; the original real-device/installer validation gaps remain open.

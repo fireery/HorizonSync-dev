@@ -1,6 +1,6 @@
 # 迭代记录
 
-## Issue #1：壁纸选择体验优化
+## 0.2.0-preview.1：Issue #1 壁纸选择体验优化
 
 - 记录日期：2026-10-31；实现日期：2026-11-01。
 - 来源：用户反馈及 https://github.com/fireery/HorizonSync-dev/issues/1。
