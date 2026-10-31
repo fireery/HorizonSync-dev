@@ -1,6 +1,6 @@
 # Validation status
 
-Published preview baseline: 2026-10-31, version 0.1.0-preview.1. Current development version: 0.2.0-preview; see Issue #1 validation below.
+Published preview baseline: 2026-10-31, version 0.1.0-preview (renamed without changing payloads). Current development version: 0.2.0-preview; see Issue #1 validation below.
 
 ## Completed
 
@@ -53,3 +53,11 @@ The remaining real-device and installer lifecycle checks above are still open; t
 - An additional project-build check found two existing project-file omissions: `System.Xml` was not explicitly referenced, and MSBuild generated a duplicate of the manually supplied TargetFramework attribute. Both are corrected. Local legacy MSBuild now builds, but reports missing .NET 4.8 targeting-pack/GAC fallback warnings; CI now also builds the project using Visual Studio MSBuild. Visual Studio project compilation and the complete CI workflow passed for follow-up commit `3949128a18b1c7542e82b2fba154c3b6a402a873`: https://github.com/fireery/HorizonSync-dev/actions/runs/41237644206.
 
 Remaining feature validation: native 150%/200% DPI and monitor transitions, extended screen-reader use, and larger real-world GIF memory/CPU profiling. The tests above do not claim those checks. Previewing or selecting a wallpaper does not invoke the desktop-switching command; the original real-device/installer validation gaps remain open.
+
+
+### Final GitHub round trip and version naming
+
+- Commit `7463d52c2b008659b6f01cca7323e8c0174e0c8e` (`0.2.0-preview`) was pulled into the separate GitHub validation checkout, rebuilt and packaged. Its 43 explicitly partial core checks and all 36 picker checks passed. File/product versions were verified as `0.2.0.0` / `0.2.0-preview`.
+- Complete PR CI passed, including script build, Visual Studio MSBuild, complete core/mock CLI tests, picker lifecycle tests, solar comparison and packaging: https://github.com/fireery/HorizonSync-dev/actions/runs/41237909437.
+- At the user's request, the old published release was renamed to `v0.1.0-preview` at unchanged commit `458d0484398eb21773444b166aaa55235e4434cb`. The original `.1` tag remains an alias. Portable/setup assets were renamed in place; all four original payloads retain their original asset IDs, sizes and SHA256 values. The original checksum index is preserved as `SHA256SUMS-original.txt`; a new primary index matches the shortened names. All five release attachments were downloaded again and their hashes verified. Release: https://github.com/fireery/HorizonSync-dev/releases/tag/v0.1.0-preview.
+- PR #2 remains a draft targeting develop; the 0.2.0-preview build has not been merged or published as a Release. The native DPI/monitor and other real-device limitations recorded above still apply.
